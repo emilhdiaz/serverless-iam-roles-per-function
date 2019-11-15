@@ -244,8 +244,9 @@ describe('plugin tests', function(this: any) {
         } catch (error) {
           const msg: string = error.message;
           assert.isString(msg);
+          console.log(msg)
           assert.isTrue(msg.startsWith('serverless-iam-roles-per-function: ERROR:'));
-          assert.isTrue(msg.endsWith('testing'));
+          assert.isTrue(msg.includes('testing'));
         }
       });
     });
@@ -270,7 +271,7 @@ describe('plugin tests', function(this: any) {
     });
 
     describe('#createRolesPerFunction', () => {
-      it('should create role per function', () => {
+      it('should create role per function', () => {     
         plugin.createRolesPerFunction();
         const helloRole = serverless.service.provider.compiledCloudFormationTemplate.Resources.HelloIamRoleLambdaExecution;
         assert.isNotEmpty(helloRole);
